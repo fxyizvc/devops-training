@@ -1,0 +1,83 @@
+PHASE 1: LINUX FOUNDATIONS
+Lesson 1: The Linux Filesystem & Navigation
+1. Concept in simple words Windows uses drive letters (C:\, D:\). Linux does not. Linux uses a Single Hierarchical Tree. Everything starts from Root (represented by a forward slash /). If you plug in a hard drive, it doesn't get a new letter; it becomes a folder inside that main tree. Crucial concept: In Linux, "Everything is a file." A text file is a file. A directory is a file. Your keyboard input is a stream treated like a file.
+
+2. Why this exists in real systems In a massive distributed system, we don't care about "drives." We care about paths. Having a unified tree structure means that whether a file is on a local SSD, a network drive, or a virtual memory block, the software accesses it the exact same way: via a path like /var/www/html.
+
+3. What problem it solves in production It provides predictability. When I deploy code to 10,000 servers, I need to know that the configuration file is always at /etc/myapp/config.conf. I don't have time to guess if it's on the D: drive or E: drive.
+
+4. Hands-on Tasks Assumption: You are using a Linux terminal (WSL2 on your HP, or a native Linux install). Open it now.
+
+Task A: Exploring Root Run these commands one by one.
+
+Go to the very top of the system:
+
+Bash
+
+cd /
+List what is there:
+
+Bash
+
+ls -F
+Output expectation: You will see standard directories like bin/, etc/, var/, home/, usr/.
+
+Note: The / at the end of the names (added by -F) tells you they are directories.
+
+Task B: Absolute vs. Relative Paths (The #1 source of script failures)
+
+Absolute Path: The full address starting from Root (/). Like GPS coordinates.
+
+Relative Path: Directions starting from where you are right now.
+
+Go to your user home directory:
+
+Bash
+
+cd ~
+pwd
+Output: Likely /home/fayiz or /home/yourusername.
+
+Create a practice folder:
+
+Bash
+
+mkdir -p devops/lesson1
+Navigate there using a Relative Path (notice no leading slash):
+
+Bash
+
+cd devops/lesson1
+Navigate back to system logs using an Absolute Path:
+
+Bash
+
+cd /var/log
+List the logs (this is where we look when servers crash):
+
+Bash
+
+ls | head -n 5
+5. Common Beginner Mistakes
+
+Confusing / and /root:
+
+/ is the Root Directory (the start of the filesystem).
+
+/root is the home folder for the Superuser (Administrator). Do not mix them up.
+
+Getting lost: Users type cd .. too many times and don't know where they are. Always use pwd (Print Working Directory) if unsure.
+
+Case Sensitivity: File.txt and file.txt are two different files in Linux. Windows doesn't care; Linux does.
+
+6. How this skill stays valuable even with AI AI (ChatGPT/Copilot) can write a script for you that says: "Move file X to folder Y." But if that script crashes with Error: No such file or directory, the AI cannot fix it for you. It cannot "see" your server's specific folder structure. You have to log in via SSH, navigate the directory tree, find where the file actually ended up, and debug the path. AI writes code. Engineers debug environments.
+
+7. Mini Challenge Perform this exact sequence and paste the final output:
+
+Start at your home directory (~).
+
+Navigate to /etc using an absolute path.
+
+Navigate to /var using a relative path from /etc (Hint: you need to go up a level first).
+
+Run pwd.
