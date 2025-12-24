@@ -1,0 +1,7 @@
+echo "password123" > secret.txt
+
+chmod o-r secret.txt ---removes read permission
+
+chmod +x secret.txt --adds execute permission.
+
+chmod 540 secret.txt --RE for user, R for Grps, None for Others.
